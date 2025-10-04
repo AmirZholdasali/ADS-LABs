@@ -1,44 +1,29 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_set>
 using namespace std;
 
-struct Node {
-    string val;
-    Node* next;
-    Node* prev;
-    Node(string x) : val(x), next(NULL), prev(NULL){}
-};
-    
 int main() {
-    
-    int n, cnt = 1;
-    string s;
-    
+    int n;
     cin >> n;
-    
-    Node *head = NULL, *tail = NULL;
-    
-    for(int i = 1; i <= n; i++){
-        cin >> s;
-        Node* node = new Node(s);
-        if(head == NULL) head = tail = node;
-        else {
-            if(s != tail->val) cnt++;
-            tail->next = node;
-            node->prev = tail;
-            tail = node;
-            
+    string x;
+    vector<string> result;
+    unordered_set<string> seen;
+
+    for (int i = 0; i < n; ++i) {
+        cin >> x;
+        if (seen.insert(x).second) {   
+            result.push_back(x);       
         }
     }
-    cout << "All in all: " << cnt << '\n' << "Students:\n";
-    Node* cur = tail;
-    while(cur != NULL){
-        cout << cur->val << '\n';
-        while(cur->prev != NULL && cur->val == cur->prev->val){
-            cur = cur->prev;
-        }
-        cur = cur->prev;
+
+    cout << "All in all: " << result.size() << endl;
+    cout << "Students:" << endl;
+
+    for (int i = result.size() - 1; i >= 0; --i) {
+        cout << result[i] << endl;
     }
-    
+
     return 0;
 }
